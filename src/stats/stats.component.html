@@ -1,0 +1,26 @@
+<div class="modalContainer flex justify-center z-10 absolute w-full h-full">
+  <div class="flex flex-col justify-center">
+    <div #modal class="modalBG z-20 p-4 px-4">
+      <div class="flex justify-between">
+        <h1 class="text-2xl font-bold mb-8">Статистики</h1>
+      </div>
+      <div class="flex justify-evenly">
+        <div class="flex flex-col w-[100px] text-center">
+          <h1 class="text-5xl">{{this.userData?.gamesPlayed}}</h1>
+          <h1 class="text-md">Играно</h1>
+        </div>
+        <div class="flex flex-col w-[100px]  text-center">
+          <h1 class="text-5xl">{{this.winPercentage*100}}</h1>
+          <h1 class="text-md"><strong class="font-sans">&#37;</strong> Победи</h1>
+        </div>
+        <div class="flex flex-col w-[100px] text-center">
+          <h1 class="text-5xl">{{this.userData?.streak}}</h1>
+          <h1 class="text-md">игри по ред</h1>
+        </div>
+      </div>
+      <div class="w-full flex justify-end mt-8">
+        <button (click)="closeModal()" class="p-2 px-4 rounded-lg">Затвори</button>
+      </div>
+    </div>
+  </div>
+</div>
