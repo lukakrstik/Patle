@@ -76,7 +76,7 @@ export class GameService {
 
   makeGuess(search : string){
       let user = this.userDataService.getUserData()
-      if(user) {
+      if(user && !user.attemptsToday.includes(search)) {
         user?.attemptsToday.push(search);
         this.userDataService.updateUserData({attemptsToday: user.attemptsToday});
       }
@@ -92,8 +92,7 @@ export class GameService {
 
   calculateDailyGame(){
     const today = new Date();
-    today.setHours(today.getHours() - 1);
-    today.setDate(today.getDate() + 3);
+    today.setHours(today.getHours() + 1);
     const startOfEpoch = new Date('2024-10-10'); // Define the start date of your challenges
     const dayDifference = Math.floor(
       (today.getTime() - startOfEpoch.getTime()) / (1000 * 60 * 60 * 24)
