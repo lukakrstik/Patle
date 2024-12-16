@@ -50,7 +50,6 @@ export const OPSHTINI: Opshtina[] = [
   {id: "debar", name: "Дебар", borders: ["mavrovo_rostushe", "centar_zhupa", "struga", "kichevo"]},
   {id: "centar_zhupa", name: "Центар Жупа", borders: ["debar", "struga"]},
   {id: "vevchani", name: "Вевчани", borders: ["struga"]},
-  {id: "demir_hisar", name: "Демир Хисар", borders: ["bitola", "resen", "krushevo", "mogila", "kichevo", "ohrid", "debarca"]},
   {id: "novaci", name: "Новаци", borders: ["bitola", "mogila", "prilep"]},
   {id: "chucher_sandevo", name: "Чучер Сандево", borders: ["skopje", "lipkovo"]},
   {id: "lipkovo", name: "Липково", borders: ["kumanovo", "skopje", "chucher_sandevo", "arachinovo"]},
