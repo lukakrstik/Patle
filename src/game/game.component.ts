@@ -6,19 +6,21 @@ import {CommonModule, NgFor} from '@angular/common';
 import {UserDataService} from '../user.service';
 import {User} from '../user';
 import {GameService} from '../game.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, NgFor],
+  imports: [CommonModule, NgFor, FormsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
 export class GameComponent implements OnInit, AfterViewInit {
     private opstini: Opshtina[] = OPSHTINI;
+    public search: string = '';
+    protected filteredOpshtini: { id: string; name: string }[] = [];
     private shortestPath: string[] | null = []
     protected attempts: number = -1;
     public guessArray: Opshtina[] = [];
-    @ViewChild("guess") private guessPrev: ElementRef | undefined;
 
     public opstiniArr: Opshtina[] = []
     protected userData!: User | null;
@@ -36,7 +38,18 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.shortestCut?.shift()
     }
 
+    filterOpshtini(): void {
+      const query = this.search.toLowerCase(); // Convert to lowercase for case-insensitive comparison
 
+      this.filteredOpshtini = this.opstini.filter(opshtina =>
+        opshtina.name.toLowerCase().includes(query) // Filter by Cyrillic name
+      );
+    }
+    selectOpshtina(opshtina: { id: string; name: string }): void {
+      console.log('Selected Municipality:', opshtina);
+      // Handle selection logic here
+      this.search = opshtina.name
+    }
 
     borderCheck(name: string) {
        if (this.shortestCut?.find(x => x === name)) return "green";
@@ -64,10 +77,10 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     }
 
-    @ViewChild("search") private search: ElementRef | undefined;
     guess(){
-      this.gameService.makeGuess(this.search?.nativeElement.value);
-      console.log(this.attempts)
+      let guess = this.opstini?.find(x => x.name.toLowerCase() == this.search.toLowerCase())
+      if(guess != undefined) this.gameService.makeGuess(guess.id);
+      this.search = ""
       if(this.guessArray.length >= this.attempts){
         this.gameService.endGame()
       }
@@ -99,6 +112,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       if(this.userData === undefined) {
 
       }
+      this.filteredOpshtini = this.opstini;
     }
 
     ngAfterViewInit() {

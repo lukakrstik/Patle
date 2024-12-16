@@ -1,6 +1,6 @@
-<div class="w-full lg:w-[30vw] mx-auto mt-4">
+<div class="w-full lg:w-[30vw] mx-auto mt-2">
   <div>
-    <h1 class="text-3xl text-center">Сакам да стигнам од <strong class="text-[#FF8370]">{{opstiniArr[0].name}}</strong> до <strong class="text-[#98C39E]">{{opstiniArr[1].name}}</strong></h1>
+    <h1 class="text-2xl text-center">Сакам да стигнам од <strong class="text-[#FF8370]">{{opstiniArr[0].name}}</strong> до <strong class="text-[#98C39E]">{{opstiniArr[1].name}}</strong></h1>
   </div>
   <svg #map class="map p-3" width="100%" height="100%" viewBox="0 0 745 581" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
       <g>
@@ -82,14 +82,21 @@
           </g>
       </g>
   </svg>
-  <div class="flex flex-col mt-4">
-    <div class="flex" *ngIf="!this.userData?.dailyGameCompleted">
-      <input #search type="search" placeholder="Внесете општина..." class="inputs rounded-lg p-2 mr-2 shadow-lg basis-3/4">
+  <div class="flex flex-col mt-1 relative mx-1 lg:mx-0 ">
+    <div class="flex h-[50px]" *ngIf="!this.userData?.dailyGameCompleted">
+      <input #search type="search" placeholder="Внесете општина..." [(ngModel)]="this.search" (input)="filterOpshtini()" class="inputs rounded-lg p-2 mr-2 text-xl shadow-lg basis-3/4">
       <button class="rounded-lg p-2 shadow-lg basis-1/4" (click)="guess()">Погоди</button>
     </div>
-    <div class="mt-8">
-      <div class="text-2xl rounded-full counter w-fit h-fit py-1 px-3 mx-auto text-center mb-4"><strong>Обиди: {{attemptsCounter()}}/{{this.attempts}}</strong></div>
-      <div *ngFor="let guess of this.guessArray" class="inputs w-full mb-2 h-[40px] px-2 rounded-md flex justify-between">
+    <div *ngIf="this.search.length > 1" class="z-10 absolute mt-[60px] w-full text-xl">
+      <ul class="rounded-lg shadow-xl">
+        <li *ngFor="let opshtina of filteredOpshtini" (click)="selectOpshtina(opshtina)" class="px-2 py-1 inputs">
+          {{ opshtina.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="mt-4">
+      <div class="text-lg rounded-full counter w-fit py-1 px-4 mx-auto text-center mb-4 guessesContainer flex flex-col justify-center"><strong>Обиди: {{attemptsCounter()}}/{{this.attempts}}</strong></div>
+      <div *ngFor="let guess of this.guessArray" class="shadow-sm inputs w-full mb-2 h-[40px] px-2 rounded-md flex justify-between">
         <h1 class="text-xl my-auto w-[200px]">{{guess.name}}</h1>
         <div class="h-[28px] w-[28px] rounded-lg my-auto" [ngClass]="borderCheck(guess.id)"></div>
       </div>
