@@ -1,7 +1,8 @@
 <app-settings *ngIf="this.settingShow" (close)="hideModal()"></app-settings>
 <app-stats *ngIf="this.statsShow" (close)="hideModal()"></app-stats>
+<app-endgame *ngIf="this.endgameShow" (close)="hideModal()"></app-endgame>
 <div class="flex justify-between shadow-xl p-3" id="navbar">
-<p class="text-3xl text-bold">Патле</p>
+<strong class="text-3xl text-bold pt-1">Патле</strong>
   <div class="flex w-[35vw] justify-end">
     <!--STATS-->
     <svg (click)="showStats()" class="navSVG mr-8" width="24px" height="36px" viewBox="0 0 243 243" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
