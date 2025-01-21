@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { OPSHTINI } from '../opshtini';
 import { Opshtina } from '../opshtina';
 import {GraphService} from '../graph.service';
@@ -70,6 +70,23 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
       else return this.userData?.attemptsToday.length
     }
+
+    private lastScrollPosition = 0;
+
+    @HostListener('focusin', ['$event'])
+    onFocusIn(event: FocusEvent) {
+      this.lastScrollPosition = window.scrollY || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${this.lastScrollPosition}px`;
+    }
+
+    @HostListener('focusout', ['$event'])
+    onFocusOut(event: FocusEvent) {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, this.lastScrollPosition);
+    }
+
     borders(id: string){
 
     }

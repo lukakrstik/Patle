@@ -194,3 +194,10 @@ ul > li:first-child {
 ul > li:only-child {
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
+
+body, html {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensures no scrolling happens */
+}
